@@ -1,3 +1,3 @@
-from schemas.membership import membership_schema, memberships_schema, MembershipSchema
+from schemas.membership import membership_admin_schema
 
-__all__ = ['membership_schema', 'memberships_schema', 'MembershipSchema']
+__all__ = ['membership_admin_schema']

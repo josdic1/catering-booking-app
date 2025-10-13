@@ -4,7 +4,7 @@ Membership model - represents a membership account
 """
 from datetime import datetime, timezone
 from extensions import db
-
+import bcrypt
 
 class Membership(db.Model):
     """
@@ -18,10 +18,15 @@ class Membership(db.Model):
     
     # Core fields
     account_name = db.Column(db.String(100), nullable=False, unique=True)
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)  # ← NEW!
     max_guests = db.Column(db.Integer, nullable=False, default=4)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
-    
-    # Timestamps (timezone-aware)
+
+    # Custom fields
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True) 
+    phone = db.Column(db.String(20), nullable=True) 
+
+    # Timestamps
     created_at = db.Column(
         db.DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
@@ -33,11 +38,22 @@ class Membership(db.Model):
         onupdate=lambda: datetime.now(timezone.utc),
         nullable=False
     )
+
+    # Password
+    def set_password(self, password):
+        """Set password (hashing to be implemented)"""
+        password_bytes = password.encode('utf-8')
+        salt = bcrypt.gensalt(rounds=12)
+        hashed = bcrypt.hashpw(password_bytes, salt)
+        self.password_hash = hashed.decode('utf-8')
+
+    def check_password(self, password):
+        """Check password"""
+        password_bytes = password.encode('utf-8')
+        stored_hash_bytes = self.password_hash.encode('utf-8')
+        return bcrypt.checkpw(password_bytes, stored_hash_bytes)
     
-    # Relationships (add later)
-    # members = db.relationship('Member', backref='membership', lazy='dynamic')
-    # reservations = db.relationship('Reservation', backref='membership', lazy='dynamic')
-    
+
     def __repr__(self):
         return f'<Membership: {self.account_name}>'
     
