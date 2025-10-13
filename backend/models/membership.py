@@ -18,7 +18,6 @@ class Membership(db.Model):
     
     # Core fields
     account_name = db.Column(db.String(100), nullable=False, unique=True)
-    email = db.Column(db.String(120), unique=True, nullable=False, index=True)  # ← NEW!
     max_guests = db.Column(db.Integer, nullable=False, default=4)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
 

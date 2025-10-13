@@ -1,6 +1,6 @@
 # app.py
 """
-Main Flask application - SIMPLE VERSION
+Main Flask application
 """
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -49,17 +49,26 @@ def init_db(app):
         
         from models import Membership
         if Membership.query.count() == 0:
-            samples = [
-                Membership(account_name="Hallow Family", max_guests=4),
-                Membership(account_name="George", max_guests=4),
-                Membership(account_name="Smith Family", max_guests=4),
-            ]
-            db.session.bulk_save_objects(samples)
+            hallow = Membership(
+                account_name="Hallow Family",
+                email="hallow@example.com",
+                phone="555-0001"
+            )
+            hallow.set_password("password123")
+            
+            george = Membership(
+                account_name="George",
+                email="george@example.com",
+                phone="555-0002"
+            )
+            george.set_password("password123")
+            
+            db.session.add_all([hallow, george])
             db.session.commit()
             print("✅ Sample data added")
 
 
 if __name__ == '__main__':
     app = create_app()
-    init_db(app)  # Initialize database automatically
+    init_db(app)
     app.run(debug=True, port=5555)

@@ -1,0 +1,23 @@
+/* Base reset and theme */
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #111827; /* slate-900 */
+  font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links */
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Utility */
+.hidden { display: none !important; }
+.center { display: grid; place-items: center; }
+
+/* Table (if you show lists) */
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e7eb; }
+th { font-weight: 600; color: #374151; background: #fafafa; }
