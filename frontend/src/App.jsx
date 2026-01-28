@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import MaFullSchemaGenerator from './utils/MaReslationshipGenerator'
+import MarshmellowSchemaGenerator from './utils/MarshmellowSchemaGenerator'
 import './App.css'
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
 
     </header>
     <main>
-      <MaFullSchemaGenerator />
+      <MarshmellowSchemaGenerator />
       </main>
     </>
   )
